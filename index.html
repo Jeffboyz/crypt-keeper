@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Crypt Keeper - Your encrypted digital legacy vault">
+  <meta name="theme-color" content="#d4af37">
+  <title>🔐 Crypt Keeper - Digital Legacy Vault</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- Crypto utilities module -->
+  <script src="crypto.js"></script>
+
+  <!-- Main application -->
+  <script src="app.js"></script>
+
+  <script>
+    // Verify browser compatibility
+    if (!window.crypto || !window.crypto.subtle) {
+      const app = document.getElementById('app');
+      app.innerHTML = `
+        <div style="padding: 40px; text-align: center; background: #0d0620; color: #e8e8e8; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+          <div>
+            <h1>⚠️ Browser Not Supported</h1>
+            <p>Crypt Keeper requires a modern browser with WebCrypto API support.</p>
+            <p>Please use a recent version of Chrome, Firefox, Safari, or Edge.</p>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

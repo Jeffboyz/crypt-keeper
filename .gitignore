@@ -1,0 +1,5 @@
+node_modules/
+.DS_Store
+*.log
+# NOTE: .kiro/ is intentionally NOT ignored — Kiroween rules require
+# /.kiro at the repo root to prove Kiro usage. Never add it here.
