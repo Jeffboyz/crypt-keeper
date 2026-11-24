@@ -436,13 +436,17 @@ function renderLocked() {
  * Unlock vault: derive key from passphrase and verify with canary
  */
 async function unlockVault(passphrase) {
-  const form = document.getElementById('unlock-form');
-  const errorEl = document.getElementById('unlock-error');
+  // Works from both the locked screen ('unlock-form') and the released
+  // screen ('unlock-released-form'); the released screen has no loading
+  // element, so every element access below is null-guarded.
+  const form = document.getElementById('unlock-form') || document.getElementById('unlock-released-form');
+  const errorEl = document.getElementById('unlock-error') || document.getElementById('unlock-released-error');
   const loadingEl = document.getElementById('unlock-loading');
+  const errorId = errorEl ? errorEl.id : 'unlock-error';
 
-  form.style.display = 'none';
-  loadingEl.style.display = 'block';
-  errorEl.style.display = 'none';
+  if (form) form.style.display = 'none';
+  if (loadingEl) loadingEl.style.display = 'block';
+  if (errorEl) errorEl.style.display = 'none';
 
   try {
     if (!AppState.vaultMeta) {
@@ -490,9 +494,9 @@ async function unlockVault(passphrase) {
     transitionTo('unlocked');
   } catch (error) {
     console.error('Unlock failed:', error);
-    showErrorInElement('Passphrase incorrect. Please try again.', 'unlock-error');
-    form.style.display = 'block';
-    loadingEl.style.display = 'none';
+    showErrorInElement('Passphrase incorrect. Please try again.', errorId);
+    if (form) form.style.display = 'block';
+    if (loadingEl) loadingEl.style.display = 'none';
   }
 }
 
